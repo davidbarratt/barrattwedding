@@ -155,28 +155,6 @@ h2.title {
   height: 25em;
 }
 
-/*
- * Icon
- */
-.icon {
-  position: fixed;
-  bottom: 0;
-  width: auto;
-}
-
-.icon img {
-  height: 16em;
-  width: auto;
-}
-
-.icon.will {
-  margin-left: -11.8em;
-}
-
-.icon.jess {
-  margin-left: 39em;
-}
-
 @media only screen and (min-width: 600px) {
 
   header .header-wrapper {

@@ -1,7 +1,7 @@
 jQuery(document).ready(function() {
   
   jQuery("#respond_song_list").tokenInput('songs');
-  
+  /*
   jQuery('#photos .carousel').carouFredSel({
     width: '100%',
     transition: true,
@@ -56,6 +56,7 @@ jQuery(document).ready(function() {
       
     }
   });
+  */
 
   
   // Hendle the From Submit

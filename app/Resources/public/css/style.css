@@ -73,7 +73,7 @@ header .header-wrapper {
  */
 #logo {
   width: 4em;
-  float: left;
+  margin: 0 auto;
 }
 
 #logo img {
@@ -84,33 +84,46 @@ header .header-wrapper {
 /*
  * Navigation
  */
-#navigation {
-  margin-top: 1.4em;
-  overflow: hidden;
+.navigation {
+  margin: 0.5em 0 0 0;
+}
+#navigation-left {
+  float: left;
 }
 
-nav {
+#navigation-right {
   float: right;
 }
 
-#navigation ul {
+
+header nav ul {
   margin: 0;
   padding: 0;
   list-style-type: none;
 }
 
-#navigation ul li {
+header nav ul li {
   float: left;
-  margin-right: 0.7em;
   font-family: 'Ropa Sans', sans-serif;
+  clear: left;
+  margin: 0 0 0.4em 0;
 }
 
-#navigation ul li a {
+header nav ul li:last-child {
+  margin-bottom: 0;
+}
+
+header #navigation-right nav ul li {
+  float: right;
+  clear: right;
+}
+
+header nav ul li a {
   text-decoration: none;
   padding: 0.2em 0.6em;
 }
 
-#navigation ul li.current a {
+header nav ul li.current a {
   -webkit-border-radius: 0.2em;
   -moz-border-radius: 0.2em;
   border-radius: 0.2em;
@@ -118,9 +131,6 @@ nav {
   color: #fff;
 }
 
-#navigation ul li:last-child {
-  margin-right: 0;
-}
 
 /*
  * Title
@@ -165,7 +175,9 @@ h2.title {
 @media only screen and (min-width: 632px) {
 
   header .header-wrapper {
-    width: 600px;
+    width: 632px;
+    padding-right: 0;
+    padding-left: 0;
   }
 
   #page {

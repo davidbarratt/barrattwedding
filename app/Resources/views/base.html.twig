@@ -21,18 +21,24 @@
         {% block header %}
           <header>
             <div class="header-wrapper group">
-              <div id="logo">
-                {% block logo %}
-                  {% image '../app/Resources/public/images/wandj.png' %}
-                    <a href="#home">
-                      <img src="{{ asset_url }}" class="us" alt="Will & Jess" />
-                    </a>
-                  {% endimage %}
+              <div id="navigation-left" class="navigation">
+                {% block navigation_left %}
                 {% endblock %}
               </div>
-              <div id="navigation">
-                {% block navigation %}
+              <div id="navigation-right" class="navigation">
+                {% block navigation_right %}
                 {% endblock %}
+              </div>
+              <div class="logo-wrapper">
+                <div id="logo">
+                  {% block logo %}
+                    {% image '../app/Resources/public/images/wandj.png' %}
+                      <a href="#home">
+                        <img src="{{ asset_url }}" class="us" alt="Will & Jess" />
+                      </a>
+                    {% endimage %}
+                  {% endblock %}
+                </div>
               </div>
             </div>
           </header>

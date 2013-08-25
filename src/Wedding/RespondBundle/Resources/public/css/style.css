@@ -56,13 +56,13 @@ form.rsvp .submit {
   margin: 1.5em 0 0 0;
   padding: 0.4em 0;
   background-color: rgba(255,255,255,0.8);
-  border-color: #5b256a;
-  color: #5b256a;
+  border-color: #00ABFF;
+  color: #00ABFF;
 }
 
 form.rsvp .submit:hover {
   color: #fff;
-  background-color: #5b256a;
+  background-color: #00ABFF;
 }
 
 #respond_attending {
@@ -84,7 +84,7 @@ form.rsvp .submit:hover {
 #photos {
   width: 100%;
   overflow: hidden;
-  background-color: #5B256A;
+  background-color: #00ABFF;
   margin: 0;
   padding: 0;
 }

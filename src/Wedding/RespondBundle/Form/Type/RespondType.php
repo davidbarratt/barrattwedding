@@ -13,8 +13,8 @@ class RespondType extends AbstractType
     
         $builder->add('attending', 'choice', array(
           'choices' => array(
-            1 => "I'm crashing your wedding. (Yes)",
-            0 => "I have to wash my hair that day. Sorry. (No)"
+            1 => "Yes",
+            0 => "No"
           ),
           'expanded' => TRUE,
           'label'  => 'Coming to Celebrate?',
@@ -45,7 +45,7 @@ class RespondType extends AbstractType
         ));
         
         $builder->add('song_list', 'text', array(
-          'label' => 'Like to Dance? (So do we)',
+          'label' => 'What would you like to dance to?',
           'required' => FALSE,
         ));
         

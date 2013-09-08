@@ -201,14 +201,11 @@ class DefaultController extends Controller
     
     public function peopleAction(Request $request, $who)
     {
-    
-      $title = '';
+
       $people = array();
       
       if ($who == 'ladies') {
-        
-        $title = 'Ladies';
-        
+                
         $people = array(
           'jennifer' => array(
             'image' => '/bundles/weddingrespond/images/people/jennifer.jpg',
@@ -273,8 +270,6 @@ class DefaultController extends Controller
         
       }
       elseif ($who == 'gentlemen') {
-        
-        $title = 'Gentlemen';
         
         $people = array(
           'matt' => array(
@@ -344,7 +339,7 @@ class DefaultController extends Controller
       }
       
       $params = array(
-        'title' => $title,
+        'title' => 'Wedding Party',
         'people' => $people,
       );
             

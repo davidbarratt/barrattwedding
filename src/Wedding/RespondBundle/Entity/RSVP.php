@@ -53,16 +53,9 @@ class RSVP
     /**
      * @var integer
      *
-     * @ORM\Column(name="adults", type="integer")
+     * @ORM\Column(name="party_size", type="integer")
      */
-    private $adults;
-    
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="children", type="integer")
-     */
-    private $children;
+    private $party_size;
     
     /**
      * @var string
@@ -185,49 +178,26 @@ class RSVP
     }
     
     /**
-     * Set adults
+     * Set party_size
      *
-     * @param int $adults
+     * @param int $party_size
      * @return RSVP
      */
-    public function setAdults($adults)
+    public function setPartySize($party_size)
     {
-        $this->adults = $adults;
+        $this->party_size = $party_size;
     
         return $this;
     }
 
     /**
-     * Get adults
+     * Get party_size
      *
      * @return int
      */
-    public function getAdults()
+    public function getPartySize()
     {
-        return $this->adults;
-    }
-    
-    /**
-     * Set children
-     *
-     * @param int $children
-     * @return RSVP
-     */
-    public function setChildren($children)
-    {
-        $this->children = $children;
-    
-        return $this;
-    }
-
-    /**
-     * Get children
-     *
-     * @return int
-     */
-    public function getChildren()
-    {
-        return $this->children;
+        return $this->party_size;
     }
     
     /**

@@ -32,18 +32,11 @@ class Respond
     protected $phone;
     
     /**
-     * Adults
+     * Party Size
      *
      * @Assert\Type(type="numeric")
      */
-    protected $adults;
-    
-    /**
-     * Children
-     *
-     * @Assert\Type(type="numeric")
-     */
-    protected $children;
+    protected $party_size;
     
     /**
      * Song List
@@ -96,24 +89,14 @@ class Respond
         return $this->phone;
     }
     
-    public function setAdults($adults)
+    public function setPartySize($party_size)
     {
-        $this->adults = $adults;
+        $this->party_size = $party_size;
     }
 
-    public function getAdults()
+    public function getPartySize()
     {
-        return $this->adults;
-    }
-    
-    public function setChildren($children)
-    {
-        $this->children = $children;
-    }
-
-    public function getChildren()
-    {
-        return $this->children;
+        return $this->party_size;
     }
     
     public function setSongList($song_list)

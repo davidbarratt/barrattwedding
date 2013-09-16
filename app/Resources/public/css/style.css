@@ -9,7 +9,7 @@ body {
 }
 
 #page-wrapper {
-  background-color: #8bf5cd;
+  background-color: #48d1c1;
   overflow: hidden;
 }
 
@@ -132,7 +132,7 @@ header nav ul li.current a {
   -webkit-border-radius: 0.2em;
   -moz-border-radius: 0.2em;
   border-radius: 0.2em;
-  border: 1px solid #8bf5cd;
+  border: 1px solid #48d1c1;
 }
 
 

@@ -46,7 +46,7 @@ form.rsvp textarea {
   box-sizing: border-box;
   padding: 0.2em;
   width: 100%;
-  border: 1px solid #8bf5cd;
+  border: 1px solid #48d1c1;
   -moz-border-radius: 2px;
   border-radius: 2px;
   font-size: 1.1em;
@@ -56,13 +56,13 @@ form.rsvp .submit {
   margin: 1.5em 0 0 0;
   padding: 0.4em 0;
   background-color: rgba(255,255,255,0.8);
-  border-color: #8bf5cd;
+  border-color: #48d1c1;
   color: #333;
 }
 
 form.rsvp .submit:hover {
   color: #fff;
-  background-color: #8bf5cd;
+  background-color: #48d1c1;
 }
 
 #respond_attending {
@@ -84,7 +84,7 @@ form.rsvp .submit:hover {
 #photos {
   width: 100%;
   overflow: hidden;
-  background-color: #8bf5cd;
+  background-color: #48d1c1;
   margin: 0;
   padding: 0;
 }

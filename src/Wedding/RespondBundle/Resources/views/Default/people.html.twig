@@ -13,9 +13,6 @@
           </div>
           <h3>{{ person.name }}</h3>
           <h4>{{ person.title }}</h4>
-          <div class="description">
-            {{ person.desc|raw }}
-          </div>
           <p class="social">
             {% for key, social in person.social %}
               {% if key == 'facebook' %}

@@ -207,64 +207,30 @@ class DefaultController extends Controller
       if ($who == 'ladies') {
                 
         $people = array(
-          'jennifer' => array(
-            'image' => '/bundles/weddingrespond/images/people/jennifer.jpg',
-            'name' => 'Jennifer Black',
-            'title' => 'Maid of Honor',
-            'desc' => $this->renderView('WeddingRespondBundle:People:jennifer.html.twig'),
-            'social' => array(),
-          ),
-          'jocelyn' => array(
-            'image' => '/bundles/weddingrespond/images/people/jocelyn.jpg',
-            'name' => 'Jocelyn Hofstede ',
+          'jeannie' => array(
+            'name' => 'Jeannie Mckinney',
             'title' => 'Bridesmaid',
-            'desc' => $this->renderView('WeddingRespondBundle:People:jocelyn.html.twig'),
             'social' => array(
-              'facebook' => 'jocelyn.davidson.1',
+              'facebook' => 'jeanniemckinney',
+              'twitter' => 'JeannieMcKinney',
             ),
           ),
-          'paige' => array(
-            'image' => '/bundles/weddingrespond/images/people/paige.jpg',
-            'name' => 'Paige Warga',
+          'amanda' => array(
+            'name' => 'Amanda Barratt',
             'title' => 'Bridesmaid',
-            'desc' => $this->renderView('WeddingRespondBundle:People:paige.html.twig'),
             'social' => array(
-              'facebook' => 'paige.warga'
+              'facebook' => 'amanda.barratt',
+              'twitter' => 'Ramanda',
             ),
           ),
-          'kristen' => array(
-            'image' => '/bundles/weddingrespond/images/people/kristen.jpg',
-            'name' => 'Kristen Hicks',
+          'christine' => array(
+            'name' => 'Christine Devlin',
             'title' => 'Bridesmaid',
-            'desc' => $this->renderView('WeddingRespondBundle:People:kristen.html.twig'),
             'social' => array(
-              'facebook' => 'kristen.hicks.395',
+              'facebook' => 'stine.devlin3', 
+              'twitter' => 'stinethebean',
             ),
-          ),
-          'dina' => array(
-            'image' => '/bundles/weddingrespond/images/people/dina.jpg',
-            'name' => 'Dina Kennedy',
-            'title' => 'Bridesmaid',
-            'desc' => $this->renderView('WeddingRespondBundle:People:dina.html.twig'),
-            'social' => array(
-              'facebook' => 'dinak90',
-            ),
-          ),
-          'alyssa' => array(
-            'name' => 'Alyssa Boddie',
-            'title' => 'Bridesmaid',
-            'desc' => $this->renderView('WeddingRespondBundle:People:alyssa.html.twig'),
-            'social' => array(
-              'facebook' => 'alyssa.boddie',
-            ),
-          ),
-          'nicole' => array(
-            'name' => 'Nicole Joseph',
-            'title' => 'Bridesmaid',
-            'desc' => $this->renderView('WeddingRespondBundle:People:nicole.html.twig'),
-            'social' => array(
-              'facebook' => 'nicole.joseph.792',
-            ),
+            
           ),
         );
         
@@ -272,65 +238,29 @@ class DefaultController extends Controller
       elseif ($who == 'gentlemen') {
         
         $people = array(
-          'matt' => array(
-            'name' => 'Matt Shuler',
+          'will' => array(
+            'name' => 'William Zavala',
             'title' => 'Groomsman',
-            'desc' => $this->renderView('WeddingRespondBundle:People:matt.html.twig'),
             'social' => array(
-              'facebook' => 'shulermatt',
+              'facebook' => 'Alavaz',
+              'twitter' => 'FunnyMSB',
             ),
           ),
           'andrew' => array(
             'image' => '/bundles/weddingrespond/images/people/andrew.jpg',
             'name' => 'Andrew Tungate',
             'title' => 'Groomsman',
-            'desc' => $this->renderView('WeddingRespondBundle:People:andrew.html.twig'),
             'social' => array(
               'facebook' => 'atungate',
               'twitter' => 'andrewstungate',
             ),
           ),
-          'jonathan' => array(
-            'name' => 'Jonathan Goodwin',
+          'carlos' => array(
+            'name' => 'Carlos Reyes',
             'title' => 'Groomsman',
-            'desc' => $this->renderView('WeddingRespondBundle:People:jonathan.html.twig'),
             'social' => array(
-              'facebook' => 'jon.j.goodwin'
-            ),
-          ),
-          'david' => array(
-            'name' => 'David Barratt',
-            'title' => 'Groomsman',
-            'desc' => $this->renderView('WeddingRespondBundle:People:david.html.twig'),
-            'social' => array(
-              'facebook' => 'davidbarratt',
-              'twitter' => 'davidwbarratt',
-            ),
-          ),
-          'brandon' => array(
-            'name' => 'Brandon Davis',
-            'title' => 'Groomsman',
-            'desc' => $this->renderView('WeddingRespondBundle:People:brandon.html.twig'),
-            'social' => array(
-              'facebook' => '100001487503542'
-            ),
-          ),
-          'josh' => array(
-            'name' => 'Josh Shearer',
-            'title' => 'Groomsman',
-            'desc' => $this->renderView('WeddingRespondBundle:People:josh.html.twig'),
-            'social' => array(
-              'facebook' => 'graciaman',
-              'twitter' => 'graciaman',
-            ),
-          ),
-          'matt_f' => array(
-            'name' => 'Matt Furlong',
-            'title' => 'Groomsman',
-            'desc' => $this->renderView('WeddingRespondBundle:People:matt_f.html.twig'),
-            'social' => array(
-              'facebook' => 'mattfurlong11',
-              'twitter' => 'ucfmatt',
+              'facebook' => '2036168',
+              'twitter' => 'Reyes_Carlos_',
             ),
           ),
         );

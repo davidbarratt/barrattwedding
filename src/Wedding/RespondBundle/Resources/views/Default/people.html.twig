@@ -2,31 +2,33 @@
 <div class="body">
   <div class="info">
     <div class="people">
-      {% for key, person in people %}
-        <div class="person person-{{ key }}">
-          <div class="image">
-            {% if person.image is defined %}
-              <img src="{{ person.image }}" class="person-{{ key }}" title="{{ person.name }}" />
-            {% elseif person.social.facebook is defined %}
-              <img src="https://graph.facebook.com/{{ person.social.facebook }}/picture?width=250&height=250" class="person-{{ key }}" title="{{ person.name }}" />
-            {% endif %}
-          </div>
-          <h3>{{ person.name }}</h3>
-          <h4>{{ person.title }}</h4>
-          <p class="social">
-            {% for key, social in person.social %}
-              {% if key == 'facebook' %}
-                <a href="https://www.facebook.com/{{ social}}" target="_blank">Facebook</a>
-              {% endif %}
-              {% if key == 'twitter' %}
-                <a href="https://twitter.com/{{ social}}" target="_blank">Twitter</a>
-              {% endif %}
-              {% if loop.last == false %}
-                <span> | </span>
-              {% endif %}
-            {% endfor %}
-          </p>
-        </div>
+      {% for who_key, who in people %}
+        <div class="who who-{{ who_key }}">
+          {% for key, person in who %}
+            <div class="person person-{{ key }}">
+              <div class="image">
+                {% if person.social.facebook is defined %}
+                  <a href="http://www.facebook.com/{{ person.social.facebook }}">
+                {% endif %}
+                {% if person.image is defined %}
+                  <img src="{{ person.image }}" class="person-{{ key }}" title="{{ person.name }}" />
+                {% elseif person.social.facebook is defined %}
+                  <img src="https://graph.facebook.com/{{ person.social.facebook }}/picture?width=600&height=600" class="person-{{ key }}" title="{{ person.name }}" />
+                {% endif %}
+                {% if person.social.facebook is defined %}
+                  </a>
+                {% endif %}
+              </div>
+              <h3>
+                {% if person.social.facebook is defined %}
+                  <a href="http://www.facebook.com/{{ person.social.facebook }}">{{ person.name }}</a>
+                {% else %}
+                  {{ person.name }}
+                {% endif %}
+              </h3>
+            </div>
+          {% endfor %}
+         </div>
       {% endfor %}
     </div>
   </div>

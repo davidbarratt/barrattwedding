@@ -199,14 +199,12 @@ class DefaultController extends Controller
       
     }
     
-    public function peopleAction(Request $request, $who)
+    public function peopleAction(Request $request)
     {
 
-      $people = array();
-      
-      if ($who == 'ladies') {
                 
-        $people = array(
+      $people = array(
+        'ladies' => array(
           'jeannie' => array(
             'name' => 'Jeannie Mckinney',
             'title' => 'Bridesmaid',
@@ -231,13 +229,9 @@ class DefaultController extends Controller
               'twitter' => 'stinethebean',
             ),
             
-          ),
-        );
-        
-      }
-      elseif ($who == 'gentlemen') {
-        
-        $people = array(
+          ),  
+        ),
+        'gentlemen' => array(
           'will' => array(
             'name' => 'William Zavala',
             'title' => 'Groomsman',
@@ -263,10 +257,8 @@ class DefaultController extends Controller
               'twitter' => 'Reyes_Carlos_',
             ),
           ),
-        );
-        
-        
-      }
+        ),
+      );
       
       $params = array(
         'title' => 'Wedding Party',

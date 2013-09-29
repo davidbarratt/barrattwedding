@@ -7,8 +7,9 @@ use Guzzle\Plugin\Oauth\OauthPlugin;
 use Guzzle\Http\Exception\BadResponseException;
 use Doctrine\ORM\EntityManager;
 
-use Wedding\RespondBundle\Entity\Artist;
 use Wedding\RespondBundle\Entity\Song;
+use Wedding\RespondBundle\Entity\Artist;
+use Wedding\RespondBundle\Entity\Album;
 
 class SongFinder {
     
@@ -86,6 +87,7 @@ class SongFinder {
     public function getSaveSong($id)
     {
       
+      $album_repository = $this->em->getRepository('Wedding\RespondBundle\Entity\Album');
       $artist_repository = $this->em->getRepository('Wedding\RespondBundle\Entity\Artist');
       $song_repository = $this->em->getRepository('Wedding\RespondBundle\Entity\Song');
       
@@ -113,6 +115,16 @@ class SongFinder {
       }
       
       $song->setArtist($artist);
+      
+      $album = $album_repository->find($song_info['collectionId']);
+      
+      if (!$album) {
+        $album = new Album();
+        $album->setID($song_info['collectionId']);
+        $album->setName($song_info['collectionName']);
+      }
+      
+      $song->setAlbum($album);
       
       $this->em->persist($song);
       

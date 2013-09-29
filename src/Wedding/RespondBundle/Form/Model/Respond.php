@@ -15,19 +15,25 @@ class Respond
     
     /**
      * @Assert\NotBlank()
-     * @Assert\MaxLength(255)
+     * @Assert\Length(
+     *      max = "255"
+     * )
      */
     protected $name;
     
     /**
      * @Assert\Email()
-     * @Assert\MaxLength(255)
+     * @Assert\Length(
+     *      max = "255"
+     * )
      */
     protected $email;
     
     /**
      * @Assert\NotBlank()
-     * @Assert\MaxLength(20)
+     * @Assert\Length(
+     *      max = "255"
+     * )
      */
     protected $phone;
     

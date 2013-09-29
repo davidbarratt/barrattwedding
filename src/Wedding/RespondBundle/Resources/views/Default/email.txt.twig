@@ -7,13 +7,11 @@ Email: {{ rsvp.email|raw }}
 
 Phone: {{ rsvp.phone|raw }}
 
-Adults: {{ rsvp.adults|raw }}
-
-Children: {{ rsvp.children|raw }}
+Party Size: {{ rsvp.partysize|raw }}
 
 Songs:
 {% for song in songs %}
-"{{ song.title|raw }}" by {{ song.artist.name|raw }}
+"{{ song.title|raw }}" by {{ song.artist.name|raw }} on {{ song.album.name|raw }}
 {% endfor %}
 
 Note:

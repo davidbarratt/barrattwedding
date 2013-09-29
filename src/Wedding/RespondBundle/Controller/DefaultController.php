@@ -43,8 +43,7 @@ class DefaultController extends Controller
           $rsvp->setName($respond->getName());
           $rsvp->setEmail($respond->getEmail());
           $rsvp->setPhone($respond->getPhone());
-          $rsvp->setAdults($respond->getAdults());
-          $rsvp->setChildren($respond->getChildren());
+          $rsvp->setPartySize($respond->getPartySize());
           $rsvp->setNote($respond->getNote());
                     
           $songs = $song_repository->findById($song_ids);

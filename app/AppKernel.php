@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Wedding\RespondBundle\WeddingRespondBundle(),
             new Wedding\TwitterBundle\WeddingTwitterBundle(),
+            new Wedding\SocialBundle\WeddingSocialBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

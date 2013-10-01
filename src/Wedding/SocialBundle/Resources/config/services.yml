@@ -1,0 +1,7 @@
+parameters:
+#    wedding_social.example.class: Wedding\SocialBundle\Example
+
+services:
+#    wedding_social.example:
+#        class: %wedding_social.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

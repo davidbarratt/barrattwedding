@@ -117,18 +117,35 @@ form.rsvp .submit:hover {
   position: absolute;
 }
 
-#photos .prev:hover,
-#photos .next:hover {
-  background-color: #fff;
+#photos .prev:before,
+#photos .next:before {
+  content: ' ';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.88);
+  z-index: 10;
+}
+
+#photos .prev:hover:before,
+#photos .next:hover:before {
   background-color: rgba(255, 255, 255, 0.85);
 }
 
 #photos .prev {
-  right: 632px;
+  right: 631px;
 }
 
 #photos .next {
   left: 632px;
+}
+
+#photos .bx-wrapper .bx-viewport {
+  border: none;
+  box-shadow: none;
+  left: inherit;
 }
 
 /*
@@ -197,6 +214,15 @@ form.rsvp .submit:hover {
 }
 
 @media only screen and (min-width: 632px) {
+  
+  #photos .main {
+    width: 632px;
+    height: 421px;
+  }
+  
+  #photos .bx-controls {
+    display: none;
+  }
   
   .page-people .person,
   .page-people .person .image {

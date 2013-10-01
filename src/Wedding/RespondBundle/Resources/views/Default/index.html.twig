@@ -7,27 +7,31 @@
     <div class="background">
     
       <div class="wrapper">
-        <!--
+
         <div class="carousel prev">
-          {% for photo in photos %}
-            <img src="/bundles/weddingrespond/images/photos/{{ photo }}" alt="" class="{% if loop.last == false %}hidden{% endif %}" />
-          {% endfor %}
-        </div>
-        -->
-      
-        <div class="carousel main">
-          {% for photo in photos %}
-            <img src="/bundles/weddingrespond/images/photos/{{ photo }}" alt="" class="{% if loop.first == false %}hidden{% endif %}" />
-          {% endfor %}
+          <div class="slides">
+            {% for photo in photos %}
+              <img src="/bundles/weddingrespond/images/photos/{{ photo }}" alt="" class="{% if loop.last == false %}hidden{% endif %}" />
+            {% endfor %}
+          </div>
         </div>
         
-        <!--
-        <div class="carousel next">
-          {% for photo in photos %}
-            <img src="/bundles/weddingrespond/images/photos/{{ photo }}" alt="" class="{% if loop.index != 2 %}hidden{% endif %}" />
-          {% endfor %}
+      
+        <div class="carousel main">
+          <div class="slides">
+            {% for photo in photos %}
+              <img src="/bundles/weddingrespond/images/photos/{{ photo }}" alt="" class="{% if loop.first == false %}hidden{% endif %}" />
+            {% endfor %}
+          </div>
         </div>
-        -->
+        
+        <div class="carousel next">
+          <div class="slides">
+            {% for photo in photos %}
+              <img src="/bundles/weddingrespond/images/photos/{{ photo }}" alt="" class="{% if loop.index != 2 %}hidden{% endif %}" />
+            {% endfor %}
+          </div>
+        </div>
         
       </div>
     

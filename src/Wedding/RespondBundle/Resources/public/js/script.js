@@ -149,7 +149,7 @@ function addGuestForm(collectionHolder, $newLinkLi) {
     collectionHolder.data('index', index + 1);
 
     // Display the form in the page in a div, before the "Add a Guest" link.
-    var $newFormDiv = $('<div class="form"></div>').append('<label class="guest-num"><span class="guest">Guest #<span class="num">' + (index + 1) + '</span></span></label>').append(newForm);
+    var $newFormDiv = jQuery('<div class="form"></div>').append('<label class="guest-num"><span class="guest">Guest #<span class="num">' + (index + 1) + '</span></span></label>').append(newForm);
     $newLinkLi.before($newFormDiv);
     addGuestFormDeleteLink($newFormDiv);
     

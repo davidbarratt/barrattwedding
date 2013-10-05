@@ -73,15 +73,17 @@
             {{ form_row(form.email) }}
             {{ form_row(form.phone) }}
             
-            <div class="attendee">
-                {{ form_label(form.attendee) }}
-                {{ form_errors(form.attendee) }}
-                {# iterate over each existing tag and render its only field: name #}
-                {% for attendee in form.attendee %}
-                    <div class="collection">
-                      {{ form_widget(attendee) }}
-                    </div>
-                {% endfor %}
+            <div class="guest">
+                {{ form_label(form.guest) }}
+                {{ form_errors(form.guest) }}
+                {# iterate over each existing guest and render its only fields: first_name and last_name #}
+                <div class="collection" data-prototype="{{ form_widget(form.guest.vars.prototype)|e }}">
+                  {% for guest in form.guest %}
+                      <div class="form">
+                        {{ form_widget(guest) }}
+                      </div>
+                  {% endfor %}
+                </div>
                 
             </div>
             

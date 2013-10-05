@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-use Wedding\RespondBundle\Form\Type\AttendeeType;
+use Wedding\RespondBundle\Form\Type\GuestType;
 
 class RespondType extends AbstractType
 {
@@ -30,9 +30,9 @@ class RespondType extends AbstractType
         
         $builder->add('phone', 'text');
         
-        $builder->add('attendee', 'collection', array(
-          'label' => 'Please list the name of each attendee (including yourself).',
-          'type'  => new AttendeeType(),
+        $builder->add('guest', 'collection', array(
+          'label' => 'Please list all additional guests.',
+          'type'  => new GuestType(),
           'allow_add' => TRUE,
           'prototype' => TRUE,
         ));

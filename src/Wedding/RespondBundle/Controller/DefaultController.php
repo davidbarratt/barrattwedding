@@ -10,7 +10,7 @@ use Wedding\RespondBundle\Entity\RSVP;
 use Wedding\RespondBundle\Entity\Song;
 use Wedding\RespondBundle\Form\Type\RespondType;
 use Wedding\RespondBundle\Form\Model\Respond;
-use Wedding\RespondBundle\Form\Model\Attendee;
+use Wedding\RespondBundle\Form\Model\Guest;
 
 class DefaultController extends Controller
 {
@@ -18,8 +18,6 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
       $respond = new Respond();
-      $attendee = new Attendee();
-      $respond->addAttendee($attendee);
       
       // Build the Registration Form
       $form = $this->createForm(new RespondType(), $respond);

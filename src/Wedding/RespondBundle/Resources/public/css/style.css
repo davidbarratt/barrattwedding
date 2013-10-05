@@ -29,9 +29,20 @@ form.rsvp {
   margin-bottom: 3em;
 }
 
-#respond > div {
+#respond > div,
+#respond .guest > label,
+#respond .guest .form > div > div {
   clear: both;
   margin-bottom: 1em;
+}
+
+#respond .guest .form > label {
+  clear: both;
+  margin-bottom: 0.5em;
+}
+
+#respond .guest .form > div {
+  margin-left: 2em;
 }
 
 form.rsvp label,

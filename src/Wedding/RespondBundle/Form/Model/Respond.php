@@ -48,7 +48,7 @@ class Respond
     /**
      * Song List
      */
-    protected $attendee;
+    protected $guest;
     
     /**
      * Song List
@@ -116,21 +116,21 @@ class Respond
         return $this->phone;
     }
     
-    public function addAttendee(\Wedding\RespondBundle\Form\Model\Attendee $attendee)
+    public function addGuest(\Wedding\RespondBundle\Form\Model\Guest $guest)
     {
-        $this->attendee[] = $attendee;
+        $this->guest[] = $guest;
     
         return $this;
     }
 
-    public function removeAttendee(\Wedding\RespondBundle\Form\Model\Attendee $attendee)
+    public function removeGuest(\Wedding\RespondBundle\Form\Model\Guest $guest)
     {
-        $this->attendee->removeElement($attendee);
+        $this->attendee->removeElement($guest);
     }
 
-    public function getAttendee()
+    public function getGuest()
     {
-        return $this->attendee;
+        return $this->guest;
     }
     
     public function setSongList($song_list)

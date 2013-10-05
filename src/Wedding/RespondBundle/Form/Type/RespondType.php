@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+use Wedding\RespondBundle\Form\Type\AttendeeType;
+
 class RespondType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -20,19 +22,19 @@ class RespondType extends AbstractType
           'label'  => 'Coming to Celebrate?',
         ));
         
-        $builder->add('name', 'text');
+        $builder->add('first_name', 'text');
+        
+        $builder->add('last_name', 'text');
         
         $builder->add('email', 'email');
         
         $builder->add('phone', 'text');
         
-        $builder->add('party_size', 'integer', array(
-          'label' => 'How many in your party (including yourself)?',
-          'attr' => array(
-            'size' => 1,
-            'pattern' => '^\d+$',
-            'title' => '#',
-          ),
+        $builder->add('attendee', 'collection', array(
+          'label' => 'Please list the name of each attendee (including yourself).',
+          'type'  => new AttendeeType(),
+          'allow_add' => TRUE,
+          'prototype' => TRUE,
         ));
         
         $builder->add('song_list', 'text', array(

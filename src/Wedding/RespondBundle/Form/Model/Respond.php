@@ -3,7 +3,7 @@
 namespace Wedding\RespondBundle\Form\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Doctrine\Common\Collections\ArrayCollection;
 
 class Respond
 {
@@ -19,7 +19,15 @@ class Respond
      *      max = "255"
      * )
      */
-    protected $name;
+    protected $first_name;
+    
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      max = "255"
+     * )
+     */
+    protected $last_name;
     
     /**
      * @Assert\Email()
@@ -38,11 +46,9 @@ class Respond
     protected $phone;
     
     /**
-     * Party Size
-     *
-     * @Assert\Type(type="numeric")
+     * Song List
      */
-    protected $party_size;
+    protected $attendee;
     
     /**
      * Song List
@@ -53,6 +59,11 @@ class Respond
      * Note
      */
     protected $note;
+    
+    public function __construct()
+    {
+        $this->attendee = new ArrayCollection();
+    }
     
     
     public function setAttending($attending)
@@ -65,14 +76,24 @@ class Respond
         return $this->attending;
     }
 
-    public function setName($name)
+    public function setFirstName($first_name)
     {
-        $this->name = $name;
+        $this->first_name = $first_name;
     }
 
-    public function getName()
+    public function getFirstName()
     {
-        return $this->name;
+        return $this->first_name;
+    }
+    
+    public function setLastName($last_name)
+    {
+        $this->last_name = $last_name;
+    }
+
+    public function getLastName()
+    {
+        return $this->last_name;
     }
     
     public function setEmail($email)
@@ -95,14 +116,21 @@ class Respond
         return $this->phone;
     }
     
-    public function setPartySize($party_size)
+    public function addAttendee(\Wedding\RespondBundle\Form\Model\Attendee $attendee)
     {
-        $this->party_size = $party_size;
+        $this->attendee[] = $attendee;
+    
+        return $this;
     }
 
-    public function getPartySize()
+    public function removeAttendee(\Wedding\RespondBundle\Form\Model\Attendee $attendee)
     {
-        return $this->party_size;
+        $this->attendee->removeElement($attendee);
+    }
+
+    public function getAttendee()
+    {
+        return $this->attendee;
     }
     
     public function setSongList($song_list)

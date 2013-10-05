@@ -66,8 +66,31 @@
       {% else %}
         <h2 class="title">RSVP</h2>
         <form class="rsvp" action="{{ path('wedding_respond_homepage') }}" method="post" {{ form_enctype(form) }}>
-          {{ form_widget(form) }}
-          <input class="submit" type="submit" value="Respond" />
+          <div id="{{ form.vars.id }}">
+            {{ form_row(form.attending) }}
+            {{ form_row(form.first_name) }}
+            {{ form_row(form.last_name) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.phone) }}
+            
+            <div class="attendee">
+                {{ form_label(form.attendee) }}
+                {{ form_errors(form.attendee) }}
+                {# iterate over each existing tag and render its only field: name #}
+                {% for attendee in form.attendee %}
+                    <div class="collection">
+                      {{ form_widget(attendee) }}
+                    </div>
+                {% endfor %}
+                
+            </div>
+            
+            {{ form_end(form) }}
+            
+            <input class="submit" type="submit" value="Respond" />
+            
+          </div>
+          
         </form>
       {% endif %}
     </div>

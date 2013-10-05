@@ -30,19 +30,23 @@ form.rsvp {
 }
 
 #respond > div,
-#respond .guest > label,
-#respond .guest .form > div > div {
+form.rsvp .guest > label,
+form.rsvp .guest .form > div > div {
   clear: both;
   margin-bottom: 1em;
 }
 
-#respond .guest .form > label {
+form.rsvp .guest .form > label {
   clear: both;
   margin-bottom: 0.5em;
 }
 
-#respond .guest .form > div {
+form.rsvp .guest .form > div {
   margin-left: 2em;
+}
+
+form.rsvp .guest .remove {
+  margin-left: 0.5em;
 }
 
 form.rsvp label,

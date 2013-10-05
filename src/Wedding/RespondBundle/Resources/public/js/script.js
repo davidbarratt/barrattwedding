@@ -149,14 +149,16 @@ function addGuestForm(collectionHolder, $newLinkLi) {
     collectionHolder.data('index', index + 1);
 
     // Display the form in the page in a div, before the "Add a Guest" link.
-    var $newFormDiv = $('<div class="form"></div>').append('<label class="guest-num">Guest #' + index + '</label>').append(newForm);
+    var $newFormDiv = $('<div class="form"></div>').append('<label class="guest-num"><span class="guest">Guest #<span class="num">' + (index + 1) + '</span></span></label>').append(newForm);
     $newLinkLi.before($newFormDiv);
     addGuestFormDeleteLink($newFormDiv);
+    
+    updateGuestNumber();
 }
 
 function addGuestFormDeleteLink($guestFormDiv) {
 
-    var $removeFormA = $('<a href="#">remove</a>');
+    var $removeFormA = $('<a href="#" class="remove">remove</a>');
     jQuery('label.guest-num', $guestFormDiv).append($removeFormA);
 
     $removeFormA.on('click', function(e) {
@@ -165,5 +167,17 @@ function addGuestFormDeleteLink($guestFormDiv) {
 
         // remove the li for the tag form
         $guestFormDiv.remove();
+        
+        updateGuestNumber();
     });
+}
+
+function updateGuestNumber() {
+ 
+ jQuery('label.guest-num .num').each(function(index, element) {
+  
+  jQuery(element).html(index+1);
+  
+ });
+  
 }

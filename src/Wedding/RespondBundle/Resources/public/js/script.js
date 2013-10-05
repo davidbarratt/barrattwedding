@@ -1,62 +1,6 @@
 jQuery(document).ready(function() {
   
   jQuery("#respond_song_list").tokenInput('songs');
-  /*
-  jQuery('#photos .carousel').carouFredSel({
-    width: '100%',
-    transition: true,
-    items: {
-      visible: 3,
-      start: -1
-    },
-    scroll: {
-      items: 1,
-      duration: 500,
-      timeoutDuration: 3000
-    },
-    auto: {
-      play: false
-    },
-    prev: '#photos .prev',
-    next: '#photos .next'
-  });
-  
-  jQuery('.page-people .carousel-wrapper .carousel').carouFredSel({
-    transition: true,
-    direction: 'up',
-    items: 1,
-    scroll: {
-      fx: 'directscroll'
-    },
-    auto: {
-      play: false
-    },
-    pagination: {
-      container: function() {
-        return jQuery(this).parents(".carousel-wrapper").find(".pager");
-      },
-      anchorBuilder: function( nr ) {
-        return '<div class="thumb thumb' + nr + '"><a href="#"><img src="' + this.src + '" alt="" title="' + this.title + '" /></a></div>';
-      },
-      onBefore: function( map ) {
-        
-      var parent = jQuery(this).parents('.page-people');
-    
-    	jQuery('.info .'+jQuery(map.items.old).attr('class'), parent).animate({
-    	  opacity: 'hide',
-        height: 'hide'
-      }, 'slow');
-    	
-    	jQuery('.info .'+jQuery(map.items.visible).attr('class'), parent).animate({
-          opacity: 'show',
-          height: 'show'
-        }, 'slow');
-        
-      }
-      
-    }
-  });
-  */
   
   var main = jQuery('#photos .carousel.main .slides').bxSlider({
     pager: false,

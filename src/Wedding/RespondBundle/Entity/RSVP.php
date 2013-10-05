@@ -32,9 +32,16 @@ class RSVP
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="first_name", type="string", length=255)
      */
-    private $name;
+    private $first_name;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="last_name", type="string", length=255)
+     */
+    private $last_name;
 
     /**
      * @var string
@@ -109,26 +116,49 @@ class RSVP
     }
     
     /**
-     * Set name
+     * Set first_name
      *
-     * @param string $name
+     * @param string $first_name
      * @return RSVP
      */
-    public function setName($name)
+    public function setFirstName($first_name)
     {
-        $this->name = $name;
+        $this->first_name = $first_name;
     
         return $this;
     }
 
     /**
-     * Get name
+     * Get first_name
      *
      * @return string 
      */
-    public function getName()
+    public function getFirstName()
     {
-        return $this->name;
+        return $this->first_name;
+    }
+    
+    /**
+     * Set last_name
+     *
+     * @param string $last_name
+     * @return RSVP
+     */
+    public function setLastName($last_name)
+    {
+        $this->last_name = $last_name;
+    
+        return $this;
+    }
+
+    /**
+     * Get last_name
+     *
+     * @return string 
+     */
+    public function getLastName()
+    {
+        return $this->last_name;
     }
     
     /**

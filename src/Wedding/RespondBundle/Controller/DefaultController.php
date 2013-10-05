@@ -75,8 +75,8 @@ class DefaultController extends Controller
           $message->setFrom($from);
           
           $bridegroom = array(
-            'william.b.zavala@gmail.com' => 'William Zavala',
-            'cjessicaucf@knights.ucf.edu' => 'Jessica Collier',
+            'david@davidwbarratt.com' => 'David Barratt',
+            'andsworth@gmail.com' => 'Andria McKinney',
           );
           
           $message->setTo($bridegroom);

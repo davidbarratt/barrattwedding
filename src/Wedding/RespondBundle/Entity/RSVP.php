@@ -66,8 +66,7 @@ class RSVP
     
     /**
      * @ORM\OneToMany(targetEntity="Guest", mappedBy="rsvp", cascade={"all"})
-     */
-     
+     */    
     private $guest;
     
     /**
@@ -78,6 +77,15 @@ class RSVP
      * )
      **/
     private $song;
+    
+    /**
+     * Construct
+     */
+    public function __construct()
+    {
+        $this->guest = new ArrayCollection();
+        $this->song = new ArrayCollection();
+    }
 
 
     /**
@@ -229,29 +237,39 @@ class RSVP
     }
     
     /**
-     * Set guest
+     * Add guest
      *
      * @param \Wedding\RespondBundle\Entity\Guest $guest
-     * @return RSVP
+     * @return Guest
      */
-    public function setRSVP(\Wedding\RespondBundle\Entity\Guest $guest)
+    public function addGuest(\Wedding\RespondBundle\Entity\Guest $guest)
     {
-        $this->guest = $guest;
+        $this->guest[] = $guest;
     
         return $this;
     }
 
     /**
+     * Remove guest
+     *
+     * @param \Wedding\RespondBundle\Entity\Guest $guest
+     */
+    public function removeGuest(\Wedding\RespondBundle\Entity\Guest $guest)
+    {
+        $this->guest->removeElement($guest);
+    }
+
+    /**
      * Get guest
      *
-     * @return \Wedding\RespondBundle\Entity\Guest
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getGuest()
     {
         return $this->guest;
     }
     
-     /**
+    /**
      * Add song
      *
      * @param \Wedding\RespondBundle\Entity\Song $song

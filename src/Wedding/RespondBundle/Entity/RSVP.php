@@ -58,19 +58,17 @@ class RSVP
     private $phone;
     
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="party_size", type="integer")
-     */
-    private $party_size;
-    
-    /**
      * @var string
      *
      * @ORM\Column(name="note", type="text", nullable=true)
      */
     private $note;
     
+    /**
+     * @ORM\OneToMany(targetEntity="Guest", mappedBy="rsvp", cascade={"all"})
+     */
+     
+    private $guest;
     
     /**
      * @ORM\ManyToMany(targetEntity="Song", inversedBy="rsvp")
@@ -208,29 +206,6 @@ class RSVP
     }
     
     /**
-     * Set party_size
-     *
-     * @param int $party_size
-     * @return RSVP
-     */
-    public function setPartySize($party_size)
-    {
-        $this->party_size = $party_size;
-    
-        return $this;
-    }
-
-    /**
-     * Get party_size
-     *
-     * @return int
-     */
-    public function getPartySize()
-    {
-        return $this->party_size;
-    }
-    
-    /**
      * Set note
      *
      * @param string $note
@@ -251,6 +226,29 @@ class RSVP
     public function getNote()
     {
         return $this->note;
+    }
+    
+    /**
+     * Set guest
+     *
+     * @param \Wedding\RespondBundle\Entity\Guest $guest
+     * @return RSVP
+     */
+    public function setRSVP(\Wedding\RespondBundle\Entity\Guest $guest)
+    {
+        $this->guest = $guest;
+    
+        return $this;
+    }
+
+    /**
+     * Get guest
+     *
+     * @return \Wedding\RespondBundle\Entity\Guest
+     */
+    public function getGuest()
+    {
+        return $this->guest;
     }
     
      /**

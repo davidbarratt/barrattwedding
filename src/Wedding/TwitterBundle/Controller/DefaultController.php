@@ -16,7 +16,7 @@ class DefaultController extends Controller
     public function tweetsAction()
     {
       $twitter = $this->get('wedding_twitter.twitter');
-      $tweets = $twitter->findSaveTweets('#TheZavalaWedding');
+      $tweets = $twitter->findSaveTweets('#BarrattWedding');
       
       $response = new JsonResponse();
       $response->setData(array(

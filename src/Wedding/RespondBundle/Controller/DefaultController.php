@@ -7,10 +7,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Wedding\RespondBundle\Entity\RSVP;
+use Wedding\RespondBundle\Entity\Guest;
 use Wedding\RespondBundle\Entity\Song;
 use Wedding\RespondBundle\Form\Type\RespondType;
 use Wedding\RespondBundle\Form\Model\Respond;
-use Wedding\RespondBundle\Form\Model\Guest;
 
 class DefaultController extends Controller
 {
@@ -43,10 +43,10 @@ class DefaultController extends Controller
           
           $rsvp = new RSVP();
           $rsvp->setAttending($respond->getAttending());
-          $rsvp->setName($respond->getName());
+          $rsvp->setFirstName($respond->getFirstName());
+          $rsvp->setLastName($respond->getLastName());
           $rsvp->setEmail($respond->getEmail());
           $rsvp->setPhone($respond->getPhone());
-          $rsvp->setPartySize($respond->getPartySize());
           $rsvp->setNote($respond->getNote());
                     
           $songs = $song_repository->findById($song_ids);
@@ -56,6 +56,7 @@ class DefaultController extends Controller
               $rsvp->addSong($song);
             }
           }
+          
             
           
           $em = $this->getDoctrine()->getManager();
@@ -64,12 +65,25 @@ class DefaultController extends Controller
           $em->flush();
           
           
+          foreach ($respond->getGuest() as $guest) {
+          
+            $rsvp_guest = new Guest();
+            $rsvp_guest->setFirstName($guest->getFirstName());
+            $rsvp_guest->setLastName($guest->getLastName());
+            $rsvp_guest->setRSVP($rsvp);
+            
+            $em->persist($rsvp_guest);
+            $em->flush();
+            
+          }
+          
+          
           // Send the Email to Will & Jess
           $message = \Swift_Message::newInstance();
           $message->setSubject('RSVP');
           
           $from = array(
-            $rsvp->getEmail() => $rsvp->getName(),
+            $rsvp->getEmail() => $rsvp->getFirstName().' '.$rsvp->getLastName(),
           );
           
           $message->setFrom($from);

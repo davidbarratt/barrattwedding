@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table(name="rsvp")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  */
 class RSVP
 {
@@ -58,6 +59,11 @@ class RSVP
     private $phone;
     
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $created;
+    
+    /**
      * @var string
      *
      * @ORM\Column(name="note", type="text", nullable=true)
@@ -86,7 +92,14 @@ class RSVP
         $this->guest = new ArrayCollection();
         $this->song = new ArrayCollection();
     }
-
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedValue()
+    {
+        $this->created = new \DateTime();
+    }
 
     /**
      * Get id
@@ -300,6 +313,29 @@ class RSVP
     public function getSong()
     {
         return $this->song;
+    }
+    
+    /**
+     * Set created
+     *
+     * @param \DateTime $verified
+     * @return Email
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
     }
     
 }

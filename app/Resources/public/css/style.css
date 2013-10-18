@@ -164,16 +164,23 @@ h2.title {
 /*
  * Travel
  */
-#travel .body .map {
-  margin: 0 -1em;
-} 
+#travel .venue {
+  text-align: center;
+}
 
-#travel .body iframe {
-  width: 100%;
-  border: none;
-  margin: 0;
-  padding: 0;
-  height: 25em;
+#travel .body {
+  overflow: hidden;
+}
+
+#travel .airport {
+  float: left;
+  width: 48%;
+}
+
+#travel .hotel {
+  float: right;
+  text-align: right;
+  width: 48%;
 }
 
 @media only screen and (min-width: 632px) {

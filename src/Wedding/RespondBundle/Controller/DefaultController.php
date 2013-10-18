@@ -73,6 +73,9 @@ class DefaultController extends Controller
             $rsvp_guest->setRSVP($rsvp);
             
             $em->persist($rsvp_guest);
+            
+            $rsvp->addGuest($rsvp_guest);
+            
             $em->flush();
             
           }

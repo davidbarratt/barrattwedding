@@ -1,15 +1,14 @@
 .tweets {
   text-align: center;
-  font-family: 'La Belle Aurore', cursive;
+  font-family: 'Ropa Sans', sans-serif;
   font-size: 1.7em;
   line-height: 1.9em;
   height: 8em;
 }
 
 .tweet {
-  display: none;
   margin: 0;
-  padding: 0;
+  padding: 0 2.5em;
 }
 
 .tweet .from {
@@ -24,6 +23,39 @@
 
 .tweet a:hover {
   text-decoration: underline;
+}
+
+.bx-wrapper .bx-viewport {
+  box-shadow: none;
+}
+.bx-wrapper .bx-pager.bx-default-pager a {
+  background-color: #999;
+}
+
+.bx-wrapper .bx-pager.bx-default-pager a:hover,
+.bx-wrapper .bx-pager.bx-default-pager a.active {
+  background-color: #48d1c1;
+}
+
+.bx-wrapper .bx-prev {
+  background: url('/bundles/weddingtwitter/images/next-prev.png') top left no-repeat;
+}
+
+.bx-wrapper .bx-prev:hover {
+  background-position: bottom left;
+}
+
+.bx-wrapper .bx-next {
+  background: url('/bundles/weddingtwitter/images/next-prev.png') top right no-repeat;
+}
+
+.bx-wrapper .bx-next:hover {
+  background-position: bottom right;
+}
+
+.bx-wrapper .bx-controls-direction a {
+  width: 33px;
+  height: 52px;
 }
 
 @media only screen and (min-width: 600px) {

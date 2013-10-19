@@ -65,18 +65,22 @@ class DefaultController extends Controller
           $em->flush();
           
           
-          foreach ($respond->getGuest() as $guest) {
-          
-            $rsvp_guest = new Guest();
-            $rsvp_guest->setFirstName($guest->getFirstName());
-            $rsvp_guest->setLastName($guest->getLastName());
-            $rsvp_guest->setRSVP($rsvp);
+          if ($respond->getGuest()) {
+           
+            foreach ($respond->getGuest() as $guest) {
             
-            $em->persist($rsvp_guest);
-            
-            $rsvp->addGuest($rsvp_guest);
-            
-            $em->flush();
+              $rsvp_guest = new Guest();
+              $rsvp_guest->setFirstName($guest->getFirstName());
+              $rsvp_guest->setLastName($guest->getLastName());
+              $rsvp_guest->setRSVP($rsvp);
+              
+              $em->persist($rsvp_guest);
+              
+              $rsvp->addGuest($rsvp_guest);
+              
+              $em->flush();
+              
+            }
             
           }
           
@@ -110,13 +114,7 @@ class DefaultController extends Controller
           $this->get('mailer')->send($message);
           
           // Send the Email to the User
-          $title = ($rsvp->getAttending()) ? 'Yay! :)' : 'Aww! :(';
-          
-          $message = \Swift_Message::newInstance();
-          $message->setSubject($title);
-          unset($bridegroom['andsworth@gmail.com']);
-          $message->setFrom($bridegroom);
-          $message->setTo($rsvp->getEmail());
+          $title = ($rsvp->getAttending()) ? 'Invitation Accepted' : 'Invitation Declined';
           
           $params = array(
             'attending' => $rsvp->getAttending(),
@@ -124,9 +122,19 @@ class DefaultController extends Controller
           
           $content = $this->renderView('WeddingRespondBundle:Default:thanks.html.twig', $params);
           
-          $message->setBody($content, 'text/html');
+          if ($rsvp->getAttending()) {
           
-          $this->get('mailer')->send($message);
+            $message = \Swift_Message::newInstance();
+            $message->setSubject($title);
+            unset($bridegroom['andsworth@gmail.com']);
+            $message->setFrom($bridegroom);
+            $message->setTo($rsvp->getEmail());
+            
+            $message->setBody($content, 'text/html');
+            
+            $this->get('mailer')->send($message);
+            
+          }
           
           
           if ($request->isXmlHttpRequest()) {

@@ -1,7 +1,3 @@
-wedding_social:
-    resource: "@WeddingSocialBundle/Resources/config/routing.yml"
-    prefix:   /
-
 wedding_respond:
     resource: "@WeddingRespondBundle/Resources/config/routing.yml"
     prefix:   /

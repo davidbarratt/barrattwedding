@@ -122,6 +122,11 @@ form.rsvp .submit:hover {
   height: auto;
 }
 
+#photos .slides img {
+  min-height: 422px;
+  min-width: 632px;
+}
+
 
 #photos .prev,
 #photos .next {

@@ -17,7 +17,7 @@ jQuery(document).ready(function() {
   });
   
   var prev = jQuery('#photos .carousel.prev .slides').bxSlider({
-    startSlide: jQuery('#photos .carousel.prev .slides img').length - 1,
+    startSlide: main.getSlideCount() - 1,
     pager: false,
     controls: false,
     easing: 'linear'

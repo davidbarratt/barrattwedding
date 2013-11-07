@@ -14,6 +14,11 @@ div.page {
   margin-bottom: -3em;
 }
 
+#rehersal div.page {
+  padding-top: 0.5em;
+  margin-bottom: -3em;
+}
+
 #photos {
   margin-bottom: 20em;
 }

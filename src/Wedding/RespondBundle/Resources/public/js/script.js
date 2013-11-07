@@ -2,33 +2,37 @@ jQuery(document).ready(function() {
   
   jQuery("#respond_song_list").tokenInput('songs');
   
-  var main = jQuery('#photos .carousel.main .slides').bxSlider({
-    pager: false,
-    easing: 'linear',
-    controls: false,
-    onSlideNext: function($slideElement, oldIndex, newIndex) {
-      next.goToNextSlide();
-      prev.goToNextSlide();
-    },
-    onSlidePrev: function($slideElement, oldIndex, newIndex) {
-      next.goToPrevSlide();
-      prev.goToPrevSlide();
-    }
-  });
+  if (jQuery('#photos').length) {
   
-  var prev = jQuery('#photos .carousel.prev .slides').bxSlider({
-    startSlide: main.getSlideCount() - 1,
-    pager: false,
-    controls: false,
-    easing: 'linear'
-  });
-  
-  var next = jQuery('#photos .carousel.next .slides').bxSlider({
-    startSlide: 1,
-    pager: false,
-    controls: false,
-    easing: 'linear'
-  });
+    var main = jQuery('#photos .carousel.main .slides').bxSlider({
+      pager: false,
+      easing: 'linear',
+      controls: false,
+      onSlideNext: function($slideElement, oldIndex, newIndex) {
+        next.goToNextSlide();
+        prev.goToNextSlide();
+      },
+      onSlidePrev: function($slideElement, oldIndex, newIndex) {
+        next.goToPrevSlide();
+        prev.goToPrevSlide();
+      }
+    });
+    
+    var prev = jQuery('#photos .carousel.prev .slides').bxSlider({
+      startSlide: main.getSlideCount() - 1,
+      pager: false,
+      controls: false,
+      easing: 'linear'
+    });
+    
+    var next = jQuery('#photos .carousel.next .slides').bxSlider({
+      startSlide: 1,
+      pager: false,
+      controls: false,
+      easing: 'linear'
+    });
+    
+  }
   
   jQuery('#photos .carousel.prev').css('cursor', 'pointer').click(function() {
     main.goToPrevSlide();

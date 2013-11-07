@@ -35,6 +35,10 @@ class DefaultController extends Controller
           
           $song_repository = $this->getDoctrine()->getRepository('Wedding\RespondBundle\Entity\Song');
           
+          $type_repository = $this->getDoctrine()->getRepository('Wedding\RespondBundle\Entity\RSVPType');
+          
+          $type = $type_repository->findOneByType('wedding');
+          
           $song_list = $respond->getSongList();
           $song_ids = explode(',', $song_list);
           
@@ -43,6 +47,7 @@ class DefaultController extends Controller
           
           $rsvp = new RSVP();
           $rsvp->setAttending($respond->getAttending());
+          $rsvp->setType($type);
           $rsvp->setFirstName($respond->getFirstName());
           $rsvp->setLastName($respond->getLastName());
           $rsvp->setEmail($respond->getEmail());

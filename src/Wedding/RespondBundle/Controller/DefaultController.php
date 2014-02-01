@@ -206,6 +206,9 @@ class DefaultController extends Controller
         }
       }
       
+      // Ensure that the Photos are in alphabetical order.
+      sort($photos);
+      
       $params = array(
         'photos' => $photos,
         'form' => $form->createView(),

@@ -67,7 +67,7 @@ header {
 
 header .header-wrapper {
   margin: 0 auto;
-  padding: 0.8em 1em;
+  padding: 0.8em 0.9em;
 }
 
 /*
@@ -97,6 +97,11 @@ header .header-wrapper {
 .navigation-right {
   float: right;
   margin: 0 1em 0 0;
+}
+
+.navigation-right ul li {
+  float: right;
+  clear: right;
 }
 
 

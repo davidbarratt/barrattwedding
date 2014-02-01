@@ -19,7 +19,7 @@ class RespondType extends AbstractType
             0 => "No"
           ),
           'expanded' => TRUE,
-          'label'  => 'Coming to Celebrate?',
+          'label'  => 'Coming to celebrate?',
         ));
         
         $builder->add('first_name', 'text');

@@ -5,3 +5,7 @@ wedding_respond_homepage:
 wedding_respond_songs:
     pattern:  /songs
     defaults: { _controller: WeddingRespondBundle:Default:songs }
+    
+wedding_respond_rehearsal:
+    pattern:  /rehearsal
+    defaults: { _controller: WeddingRespondBundle:Rehearsal:index }

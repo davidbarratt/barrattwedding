@@ -17,7 +17,7 @@
         {% endimage %}
         <meta name="viewport" content="width=device-width,initial-scale=1" />
     </head>
-    <body id="home">
+    <body id="{% block id %}home{% endblock %}">
         {% block header %}
           <header>
             <div class="header-wrapper group">

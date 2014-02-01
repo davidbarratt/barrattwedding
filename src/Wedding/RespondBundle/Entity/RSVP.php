@@ -2,6 +2,8 @@
 
 namespace Wedding\RespondBundle\Entity;
 
+use Wedding\RespondBundle\Entity\RSVPType;
+
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -22,6 +24,12 @@ class RSVP
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="RSVPType")
+     * @ORM\JoinColumn(name="type", referencedColumnName="type")
+     */
+    private $type;
     
     /**
      * @var boolean
@@ -109,6 +117,29 @@ class RSVP
     public function getID()
     {
         return $this->id;
+    }
+    
+     /**
+     * Set type
+     *
+     * @param Wedding\RespondBundle\Entity\RSVPType $type
+     * @return RSVP
+     */
+    public function setType(RSVPType $type = null)
+    {
+        $this->type = $type;
+    
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return Wedding\RespondBundle\Entity\RSVPType 
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**

@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Wedding\RespondBundle\Entity\RSVP;
+use Wedding\RespondBundle\Entity\Guest;
 use Wedding\RespondBundle\Entity\Song;
 use Wedding\RespondBundle\Form\Type\RespondType;
 use Wedding\RespondBundle\Form\Model\Respond;
@@ -16,8 +17,10 @@ class DefaultController extends Controller
     
     public function indexAction(Request $request)
     {
+      $respond = new Respond();
+      
       // Build the Registration Form
-      $form = $this->createForm(new RespondType(), new Respond());
+      $form = $this->createForm(new RespondType(), $respond);
       
       // If this Form has been completed
       if ($request->isMethod('POST')) {
@@ -32,6 +35,10 @@ class DefaultController extends Controller
           
           $song_repository = $this->getDoctrine()->getRepository('Wedding\RespondBundle\Entity\Song');
           
+          $type_repository = $this->getDoctrine()->getRepository('Wedding\RespondBundle\Entity\RSVPType');
+          
+          $type = $type_repository->findOneByType('wedding');
+          
           $song_list = $respond->getSongList();
           $song_ids = explode(',', $song_list);
           
@@ -40,11 +47,11 @@ class DefaultController extends Controller
           
           $rsvp = new RSVP();
           $rsvp->setAttending($respond->getAttending());
-          $rsvp->setName($respond->getName());
+          $rsvp->setType($type);
+          $rsvp->setFirstName($respond->getFirstName());
+          $rsvp->setLastName($respond->getLastName());
           $rsvp->setEmail($respond->getEmail());
           $rsvp->setPhone($respond->getPhone());
-          $rsvp->setAdults($respond->getAdults());
-          $rsvp->setChildren($respond->getChildren());
           $rsvp->setNote($respond->getNote());
                     
           $songs = $song_repository->findById($song_ids);
@@ -54,6 +61,7 @@ class DefaultController extends Controller
               $rsvp->addSong($song);
             }
           }
+          
             
           
           $em = $this->getDoctrine()->getManager();
@@ -62,19 +70,39 @@ class DefaultController extends Controller
           $em->flush();
           
           
+          if ($respond->getGuest()) {
+           
+            foreach ($respond->getGuest() as $guest) {
+            
+              $rsvp_guest = new Guest();
+              $rsvp_guest->setFirstName($guest->getFirstName());
+              $rsvp_guest->setLastName($guest->getLastName());
+              $rsvp_guest->setRSVP($rsvp);
+              
+              $em->persist($rsvp_guest);
+              
+              $rsvp->addGuest($rsvp_guest);
+              
+              $em->flush();
+              
+            }
+            
+          }
+          
+          
           // Send the Email to Will & Jess
           $message = \Swift_Message::newInstance();
           $message->setSubject('RSVP');
           
           $from = array(
-            $rsvp->getEmail() => $rsvp->getName(),
+            $rsvp->getEmail() => $rsvp->getFirstName().' '.$rsvp->getLastName(),
           );
           
           $message->setFrom($from);
           
           $bridegroom = array(
-            'william.b.zavala@gmail.com' => 'William Zavala',
-            'cjessicaucf@knights.ucf.edu' => 'Jessica Collier',
+            'david@davidwbarratt.com' => 'David Barratt',
+            'andsworth@gmail.com' => 'Andria McKinney',
           );
           
           $message->setTo($bridegroom);
@@ -91,13 +119,7 @@ class DefaultController extends Controller
           $this->get('mailer')->send($message);
           
           // Send the Email to the User
-          $title = ($rsvp->getAttending()) ? 'Yay! :)' : 'Aww! :(';
-          
-          $message = \Swift_Message::newInstance();
-          $message->setSubject($title);
-          unset($bridegroom['cjessicaucf@knights.ucf.edu']);
-          $message->setFrom($bridegroom);
-          $message->setTo($rsvp->getEmail());
+          $title = ($rsvp->getAttending()) ? 'Invitation Accepted' : 'Invitation Declined';
           
           $params = array(
             'attending' => $rsvp->getAttending(),
@@ -105,9 +127,19 @@ class DefaultController extends Controller
           
           $content = $this->renderView('WeddingRespondBundle:Default:thanks.html.twig', $params);
           
-          $message->setBody($content, 'text/html');
+          if ($rsvp->getAttending()) {
           
-          $this->get('mailer')->send($message);
+            $message = \Swift_Message::newInstance();
+            $message->setSubject($title);
+            unset($bridegroom['andsworth@gmail.com']);
+            $message->setFrom($bridegroom);
+            $message->setTo($rsvp->getEmail());
+            
+            $message->setBody($content, 'text/html');
+            
+            $this->get('mailer')->send($message);
+            
+          }
           
           
           if ($request->isXmlHttpRequest()) {
@@ -179,6 +211,9 @@ class DefaultController extends Controller
         }
       }
       
+      // Ensure that the Photos are in alphabetical order.
+      sort($photos);
+      
       $params = array(
         'photos' => $photos,
         'form' => $form->createView(),
@@ -199,152 +234,69 @@ class DefaultController extends Controller
       
     }
     
-    public function peopleAction(Request $request, $who)
+    public function peopleAction(Request $request)
     {
-    
-      $title = '';
-      $people = array();
-      
-      if ($who == 'ladies') {
-        
-        $title = 'Ladies';
-        
-        $people = array(
-          'jennifer' => array(
-            'image' => '/bundles/weddingrespond/images/people/jennifer.jpg',
-            'name' => 'Jennifer Black',
-            'title' => 'Maid of Honor',
-            'desc' => $this->renderView('WeddingRespondBundle:People:jennifer.html.twig'),
-            'social' => array(),
-          ),
-          'jocelyn' => array(
-            'image' => '/bundles/weddingrespond/images/people/jocelyn.jpg',
-            'name' => 'Jocelyn Hofstede ',
+
+                
+      $people = array(
+        'ladies' => array(
+          'jeannie' => array(
+            'name' => 'Jeannie Mckinney',
             'title' => 'Bridesmaid',
-            'desc' => $this->renderView('WeddingRespondBundle:People:jocelyn.html.twig'),
             'social' => array(
-              'facebook' => 'jocelyn.davidson.1',
+              'facebook' => 'jeanniemckinney',
+              'twitter' => 'JeannieMcKinney',
             ),
           ),
-          'paige' => array(
-            'image' => '/bundles/weddingrespond/images/people/paige.jpg',
-            'name' => 'Paige Warga',
+          'amanda' => array(
+            'name' => 'Amanda Barratt',
             'title' => 'Bridesmaid',
-            'desc' => $this->renderView('WeddingRespondBundle:People:paige.html.twig'),
             'social' => array(
-              'facebook' => 'paige.warga'
+              'facebook' => 'amanda.barratt',
+              'twitter' => 'Ramanda',
             ),
           ),
-          'kristen' => array(
-            'image' => '/bundles/weddingrespond/images/people/kristen.jpg',
-            'name' => 'Kristen Hicks',
+          'christine' => array(
+            'name' => 'Christine Devlin',
             'title' => 'Bridesmaid',
-            'desc' => $this->renderView('WeddingRespondBundle:People:kristen.html.twig'),
             'social' => array(
-              'facebook' => 'kristen.hicks.395',
+              'facebook' => 'stine.devlin3', 
+              'twitter' => 'stinethebean',
             ),
-          ),
-          'dina' => array(
-            'image' => '/bundles/weddingrespond/images/people/dina.jpg',
-            'name' => 'Dina Kennedy',
-            'title' => 'Bridesmaid',
-            'desc' => $this->renderView('WeddingRespondBundle:People:dina.html.twig'),
-            'social' => array(
-              'facebook' => 'dinak90',
-            ),
-          ),
-          'alyssa' => array(
-            'name' => 'Alyssa Boddie',
-            'title' => 'Bridesmaid',
-            'desc' => $this->renderView('WeddingRespondBundle:People:alyssa.html.twig'),
-            'social' => array(
-              'facebook' => 'alyssa.boddie',
-            ),
-          ),
-          'nicole' => array(
-            'name' => 'Nicole Joseph',
-            'title' => 'Bridesmaid',
-            'desc' => $this->renderView('WeddingRespondBundle:People:nicole.html.twig'),
-            'social' => array(
-              'facebook' => 'nicole.joseph.792',
-            ),
-          ),
-        );
-        
-      }
-      elseif ($who == 'gentlemen') {
-        
-        $title = 'Gentlemen';
-        
-        $people = array(
-          'matt' => array(
-            'name' => 'Matt Shuler',
+            
+          ),  
+        ),
+        'gentlemen' => array(
+          'will' => array(
+            'name' => 'William Zavala',
             'title' => 'Groomsman',
-            'desc' => $this->renderView('WeddingRespondBundle:People:matt.html.twig'),
             'social' => array(
-              'facebook' => 'shulermatt',
+              'facebook' => 'Alavaz',
+              'twitter' => 'FunnyMSB',
             ),
           ),
           'andrew' => array(
             'image' => '/bundles/weddingrespond/images/people/andrew.jpg',
             'name' => 'Andrew Tungate',
             'title' => 'Groomsman',
-            'desc' => $this->renderView('WeddingRespondBundle:People:andrew.html.twig'),
             'social' => array(
               'facebook' => 'atungate',
               'twitter' => 'andrewstungate',
             ),
           ),
-          'jonathan' => array(
-            'name' => 'Jonathan Goodwin',
+          'carlos' => array(
+            'name' => 'Carlos Reyes',
             'title' => 'Groomsman',
-            'desc' => $this->renderView('WeddingRespondBundle:People:jonathan.html.twig'),
             'social' => array(
-              'facebook' => 'jon.j.goodwin'
+              'facebook' => '2036168',
+              'twitter' => 'Reyes_Carlos_',
             ),
           ),
-          'david' => array(
-            'name' => 'David Barratt',
-            'title' => 'Groomsman',
-            'desc' => $this->renderView('WeddingRespondBundle:People:david.html.twig'),
-            'social' => array(
-              'facebook' => 'davidbarratt',
-              'twitter' => 'davidwbarratt',
-            ),
-          ),
-          'brandon' => array(
-            'name' => 'Brandon Davis',
-            'title' => 'Groomsman',
-            'desc' => $this->renderView('WeddingRespondBundle:People:brandon.html.twig'),
-            'social' => array(
-              'facebook' => '100001487503542'
-            ),
-          ),
-          'josh' => array(
-            'name' => 'Josh Shearer',
-            'title' => 'Groomsman',
-            'desc' => $this->renderView('WeddingRespondBundle:People:josh.html.twig'),
-            'social' => array(
-              'facebook' => 'graciaman',
-              'twitter' => 'graciaman',
-            ),
-          ),
-          'matt_f' => array(
-            'name' => 'Matt Furlong',
-            'title' => 'Groomsman',
-            'desc' => $this->renderView('WeddingRespondBundle:People:matt_f.html.twig'),
-            'social' => array(
-              'facebook' => 'mattfurlong11',
-              'twitter' => 'ucfmatt',
-            ),
-          ),
-        );
-        
-        
-      }
+        ),
+      );
       
       $params = array(
-        'title' => $title,
+        'title' => 'Wedding Party',
         'people' => $people,
       );
             

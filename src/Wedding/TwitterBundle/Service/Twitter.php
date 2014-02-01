@@ -147,6 +147,16 @@ class Twitter {
         
       }
       
+      foreach ($status['entities']['media'] as $media) {
+        
+        $entities[$media['indices'][0]] = array(
+          'start' => $media['indices'][0],
+          'length' => strlen($media['url']),
+          'replacement' => '<a href="'.$media['expanded_url'].'">'.$media['display_url'].'</a>',
+        );
+        
+      }
+      
       krsort($entities);
       
       foreach ($entities as $entity) {

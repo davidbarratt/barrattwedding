@@ -1,24 +1,48 @@
 {% extends 'WeddingRespondBundle::layout.html.twig' %}
 
-{% block content %}
-  <div class="pages">
+{% block subheader %}
+
+  <div id="photos" class="page page-photos">
     
-    <div id="photos" class="page page-photos">
-        
-        <div class="wrapper">
-        
-          <div class="carousel">
+    <div class="background">
+    
+      <div class="wrapper">
+
+        <div class="carousel prev">
+          <div class="slides">
             {% for photo in photos %}
-              <img src="/bundles/weddingrespond/images/photos/{{ photo }}" alt="" />
+              <img src="/bundles/weddingrespond/images/photos/{{ photo }}" alt="" class="{% if loop.last == false %}hidden{% endif %}" />
             {% endfor %}
           </div>
-          
-          <a href="#" class="prev" title="Show previous"> </a>
-          <a href="#" class="next" title="Show next"> </a>
-          
         </div>
+        
       
+        <div class="carousel main">
+          <div class="slides">
+            {% for photo in photos %}
+              <img src="/bundles/weddingrespond/images/photos/{{ photo }}" alt="" class="{% if loop.first == false %}hidden{% endif %}" />
+            {% endfor %}
+          </div>
+        </div>
+        
+        <div class="carousel next">
+          <div class="slides">
+            {% for photo in photos %}
+              <img src="/bundles/weddingrespond/images/photos/{{ photo }}" alt="" class="{% if loop.index != 2 %}hidden{% endif %}" />
+            {% endfor %}
+          </div>
+        </div>
+        
+      </div>
+    
     </div>
+  
+  </div>
+
+{% endblock %}
+
+{% block content %}
+  <div class="pages">
     
     <div id="tweets" class="page page-tweets">
       {{ render(controller("WeddingTwitterBundle:Default:index")) }}
@@ -42,18 +66,41 @@
       {% else %}
         <h2 class="title">RSVP</h2>
         <form class="rsvp" action="{{ path('wedding_respond_homepage') }}" method="post" {{ form_enctype(form) }}>
-          {{ form_widget(form) }}
-          <input class="submit" type="submit" value="Respond" />
+          <div id="{{ form.vars.id }}">
+            {{ form_row(form.attending) }}
+            {{ form_row(form.first_name) }}
+            {{ form_row(form.last_name) }}
+            {{ form_row(form.email) }}
+            {{ form_row(form.phone) }}
+            
+            <div class="guest">
+                {{ form_label(form.guest) }}
+                {{ form_errors(form.guest) }}
+                {# iterate over each existing guest and render its only fields: first_name and last_name #}
+                <div class="collection" data-prototype="{{ form_widget(form.guest.vars.prototype)|e }}">
+                  {% for guest in form.guest %}
+                      <div class="form">
+                        {{ form_widget(guest) }}
+                      </div>
+                  {% endfor %}
+                </div>
+                
+                {{ form_widget(form.guest) }}
+                
+            </div>
+            
+            {{ form_end(form) }}
+            
+            <input class="submit" type="submit" value="Respond" />
+            
+          </div>
+          
         </form>
       {% endif %}
     </div>
     
-    <div id="gentlemen" class="page page-people page-gentlemen">
-      {{ render(controller("WeddingRespondBundle:Default:people", { 'who': 'gentlemen' })) }}
-    </div>
-    
-    <div id="ladies" class="page page-people page-ladies">
-      {{ render(controller("WeddingRespondBundle:Default:people", { 'who': 'ladies' })) }}
+    <div id="party" class="page page-people page-gentlemen">
+      {{ render(controller("WeddingRespondBundle:Default:people")) }}
     </div>
     
     <div id="registry" class="page page-registry">

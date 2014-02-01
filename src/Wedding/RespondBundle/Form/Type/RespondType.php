@@ -6,6 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+use Wedding\RespondBundle\Form\Type\GuestType;
+
 class RespondType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -13,39 +15,30 @@ class RespondType extends AbstractType
     
         $builder->add('attending', 'choice', array(
           'choices' => array(
-            1 => "I'm crashing your wedding. (Yes)",
-            0 => "I have to wash my hair that day. Sorry. (No)"
+            1 => "Yes",
+            0 => "No"
           ),
           'expanded' => TRUE,
-          'label'  => 'Coming to Celebrate?',
+          'label'  => 'Coming to celebrate?',
         ));
         
-        $builder->add('name', 'text');
+        $builder->add('first_name', 'text');
+        
+        $builder->add('last_name', 'text');
         
         $builder->add('email', 'email');
         
         $builder->add('phone', 'text');
         
-        $builder->add('adults', 'integer', array(
-          'label' => 'How many adults?',
-          'attr' => array(
-            'size' => 1,
-            'pattern' => '^\d+$',
-            'title' => '#',
-          ),
-        ));
-        
-        $builder->add('children', 'integer', array(
-          'label' => 'How many children?',
-          'attr' => array(
-            'size' => 1,
-            'pattern' => '^\d+$',
-            'title' => '#',
-          ),
+        $builder->add('guest', 'collection', array(
+          'label' => 'Please list all additional guests.',
+          'type'  => new GuestType(),
+          'allow_add' => TRUE,
+          'prototype' => TRUE,
         ));
         
         $builder->add('song_list', 'text', array(
-          'label' => 'Like to Dance? (So do we)',
+          'label' => 'What would you like to dance to?',
           'required' => FALSE,
         ));
         

@@ -26,6 +26,12 @@ class Song
      * @ORM\JoinColumn(name="artist_id", referencedColumnName="artist_id")
      */
     private $artist;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Album", cascade={"persist"})
+     * @ORM\JoinColumn(name="album_id", referencedColumnName="album_id")
+     */
+    private $album;
 
     /**
      * @var string
@@ -91,6 +97,29 @@ class Song
     public function getArtist()
     {
         return $this->artist;
+    }
+    
+    /**
+     * Set album
+     *
+     * @param \Wedding\RespondBundle\Entity\Album $album
+     * @return Album
+     */
+    public function setAlbum(\Wedding\RespondBundle\Entity\Album $album)
+    {
+        $this->album = $album;
+    
+        return $this;
+    }
+
+    /**
+     * Get album
+     *
+     * @return integer 
+     */
+    public function getAlbum()
+    {
+        return $this->album;
     }
 
     /**

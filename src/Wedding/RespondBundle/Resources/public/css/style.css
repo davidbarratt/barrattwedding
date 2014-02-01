@@ -123,8 +123,10 @@ form.rsvp .submit:hover {
 }
 
 #photos .slides img {
-  min-height: 422px;
-  min-width: 632px;
+  width: 100%;
+  height: auto;
+  min-width: none;
+  min-height: none;
 }
 
 
@@ -238,6 +240,11 @@ form.rsvp .submit:hover {
   #photos .main {
     width: 632px;
     height: 421px;
+  }
+  
+  #photos .slides img {
+    min-height: 422px;
+    min-width: 632px;
   }
   
   #photos .bx-controls {

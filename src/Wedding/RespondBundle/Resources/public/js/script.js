@@ -2,62 +2,70 @@ jQuery(document).ready(function() {
   
   jQuery("#respond_song_list").tokenInput('songs');
   
-  jQuery('#photos .carousel').carouFredSel({
-    width: '100%',
-    transition: true,
-    items: {
-      visible: 3,
-      start: -1
+  var main = jQuery('#photos .carousel.main .slides').bxSlider({
+    pager: false,
+    easing: 'linear',
+    controls: false,
+    onSlideNext: function($slideElement, oldIndex, newIndex) {
+      next.goToNextSlide();
+      prev.goToNextSlide();
     },
-    scroll: {
-      items: 1,
-      duration: 500,
-      timeoutDuration: 3000
-    },
-    auto: {
-      play: false
-    },
-    prev: '#photos .prev',
-    next: '#photos .next'
-  });
-  
-  jQuery('.page-people .carousel-wrapper .carousel').carouFredSel({
-    transition: true,
-    direction: 'up',
-    items: 1,
-    scroll: {
-      fx: 'directscroll'
-    },
-    auto: {
-      play: false
-    },
-    pagination: {
-      container: function() {
-        return jQuery(this).parents(".carousel-wrapper").find(".pager");
-      },
-      anchorBuilder: function( nr ) {
-        return '<div class="thumb thumb' + nr + '"><a href="#"><img src="' + this.src + '" alt="" title="' + this.title + '" /></a></div>';
-      },
-      onBefore: function( map ) {
-        
-      var parent = jQuery(this).parents('.page-people');
-    
-    	jQuery('.info .'+jQuery(map.items.old).attr('class'), parent).animate({
-    	  opacity: 'hide',
-        height: 'hide'
-      }, 'slow');
-    	
-    	jQuery('.info .'+jQuery(map.items.visible).attr('class'), parent).animate({
-          opacity: 'show',
-          height: 'show'
-        }, 'slow');
-        
-      }
-      
+    onSlidePrev: function($slideElement, oldIndex, newIndex) {
+      next.goToPrevSlide();
+      prev.goToPrevSlide();
     }
   });
-
   
+  var prev = jQuery('#photos .carousel.prev .slides').bxSlider({
+    startSlide: main.getSlideCount() - 1,
+    pager: false,
+    controls: false,
+    easing: 'linear'
+  });
+  
+  var next = jQuery('#photos .carousel.next .slides').bxSlider({
+    startSlide: 1,
+    pager: false,
+    controls: false,
+    easing: 'linear'
+  });
+  
+  jQuery('#photos .carousel.prev').css('cursor', 'pointer').click(function() {
+    main.goToPrevSlide();
+  });
+  
+  jQuery('#photos .carousel.next').css('cursor', 'pointer').click(function() {
+    main.goToNextSlide();
+  });
+  
+  // Get the div that holds the collection of guest
+  var collectionHolder = jQuery('form.rsvp .guest .collection');
+
+  // setup an "add a tag" link
+  var $addGuestLink = jQuery('<a href="#" class="add-guest-link">Add a Guest</a>');
+  var $newLinkLi = jQuery('<div class="add-more"></div>').append($addGuestLink);
+
+
+  // add the "add a tag" anchor and li to the tags ul
+  collectionHolder.append($newLinkLi);
+
+  // count the current form inputs we have (e.g. 2), use that as the new
+  // index when inserting a new item (e.g. 2)
+  collectionHolder.data('index', collectionHolder.find(':input').length);
+
+  $addGuestLink.on('click', function(e) {
+      // prevent the link from creating a "#" on the URL
+      e.preventDefault();
+
+      // add a new guest form (see next code block)
+      addGuestForm(collectionHolder, $newLinkLi);
+  });
+  
+  collectionHolder.find('div.form').each(function() {
+      addGuestFormDeleteLink(jQuery(this));
+  });
+    
+
   // Hendle the From Submit
   jQuery('form.rsvp').on('submit' , function(event) {
   
@@ -124,3 +132,52 @@ jQuery(document).ready(function() {
   });
   
 });
+
+
+function addGuestForm(collectionHolder, $newLinkLi) {
+    // Get the data-prototype explained earlier
+    var prototype = collectionHolder.data('prototype');
+
+    // get the new index
+    var index = collectionHolder.data('index');
+
+    // Replace '__name__' in the prototype's HTML to
+    // instead be a number based on how many items we have
+    var newForm = prototype.replace(/__name__/g, index);
+
+    // increase the index with one for the next item
+    collectionHolder.data('index', index + 1);
+
+    // Display the form in the page in a div, before the "Add a Guest" link.
+    var $newFormDiv = jQuery('<div class="form"></div>').append('<label class="guest-num"><span class="guest">Guest #<span class="num">' + (index + 1) + '</span></span></label>').append(newForm);
+    $newLinkLi.before($newFormDiv);
+    addGuestFormDeleteLink($newFormDiv);
+    
+    updateGuestNumber();
+}
+
+function addGuestFormDeleteLink($guestFormDiv) {
+
+    var $removeFormA = $('<a href="#" class="remove">remove</a>');
+    jQuery('label.guest-num', $guestFormDiv).append($removeFormA);
+
+    $removeFormA.on('click', function(e) {
+        // prevent the link from creating a "#" on the URL
+        e.preventDefault();
+
+        // remove the li for the tag form
+        $guestFormDiv.remove();
+        
+        updateGuestNumber();
+    });
+}
+
+function updateGuestNumber() {
+ 
+ jQuery('label.guest-num .num').each(function(index, element) {
+  
+  jQuery(element).html(index+1);
+  
+ });
+  
+}

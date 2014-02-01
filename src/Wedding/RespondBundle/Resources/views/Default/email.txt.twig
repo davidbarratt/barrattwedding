@@ -1,20 +1,37 @@
 Attending: {% if rsvp.attending %}Yes{% else %}No{% endif %}
 
 
-Name: {{ rsvp.name|raw }}
+{% if rsvp.firstname %}
+First Name: {{ rsvp.firstname|raw }}
+{% endif %}
 
+{% if rsvp.lastname %}
+Last Name: {{ rsvp.lastname|raw }}
+{% endif %}
+
+{% if rsvp.email %}
 Email: {{ rsvp.email|raw }}
+{% endif %}
 
+{% if rsvp.phone %}
 Phone: {{ rsvp.phone|raw }}
+{% endif %}
 
-Adults: {{ rsvp.adults|raw }}
+{% if rsvp.guest %}
+Guests:
+{% for guest in rsvp.guest %}
+{{ guest.firstname|raw }} {{ guest.lastname|raw }}
+{% endfor %}
+{% endif %}
 
-Children: {{ rsvp.children|raw }}
-
+{% if songs %}
 Songs:
 {% for song in songs %}
-"{{ song.title|raw }}" by {{ song.artist.name|raw }}
+"{{ song.title|raw }}" by {{ song.artist.name|raw }} on {{ song.album.name|raw }}
 {% endfor %}
+{% endif %}
 
+{% if rsvp.note %}
 Note:
 {{ rsvp.note|raw }}
+{% endif %}

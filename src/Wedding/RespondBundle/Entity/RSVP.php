@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table(name="rsvp")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks()
  */
 class RSVP
 {
@@ -32,9 +33,16 @@ class RSVP
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="first_name", type="string", length=255)
      */
-    private $name;
+    private $first_name;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="last_name", type="string", length=255)
+     */
+    private $last_name;
 
     /**
      * @var string
@@ -51,18 +59,9 @@ class RSVP
     private $phone;
     
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="adults", type="integer")
+     * @ORM\Column(type="datetime")
      */
-    private $adults;
-    
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="children", type="integer")
-     */
-    private $children;
+    private $created;
     
     /**
      * @var string
@@ -71,6 +70,10 @@ class RSVP
      */
     private $note;
     
+    /**
+     * @ORM\OneToMany(targetEntity="Guest", mappedBy="rsvp", cascade={"all"})
+     */    
+    private $guest;
     
     /**
      * @ORM\ManyToMany(targetEntity="Song", inversedBy="rsvp")
@@ -80,7 +83,23 @@ class RSVP
      * )
      **/
     private $song;
-
+    
+    /**
+     * Construct
+     */
+    public function __construct()
+    {
+        $this->guest = new ArrayCollection();
+        $this->song = new ArrayCollection();
+    }
+    
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedValue()
+    {
+        $this->created = new \DateTime();
+    }
 
     /**
      * Get id
@@ -116,26 +135,49 @@ class RSVP
     }
     
     /**
-     * Set name
+     * Set first_name
      *
-     * @param string $name
+     * @param string $first_name
      * @return RSVP
      */
-    public function setName($name)
+    public function setFirstName($first_name)
     {
-        $this->name = $name;
+        $this->first_name = $first_name;
     
         return $this;
     }
 
     /**
-     * Get name
+     * Get first_name
      *
      * @return string 
      */
-    public function getName()
+    public function getFirstName()
     {
-        return $this->name;
+        return $this->first_name;
+    }
+    
+    /**
+     * Set last_name
+     *
+     * @param string $last_name
+     * @return RSVP
+     */
+    public function setLastName($last_name)
+    {
+        $this->last_name = $last_name;
+    
+        return $this;
+    }
+
+    /**
+     * Get last_name
+     *
+     * @return string 
+     */
+    public function getLastName()
+    {
+        return $this->last_name;
     }
     
     /**
@@ -185,52 +227,6 @@ class RSVP
     }
     
     /**
-     * Set adults
-     *
-     * @param int $adults
-     * @return RSVP
-     */
-    public function setAdults($adults)
-    {
-        $this->adults = $adults;
-    
-        return $this;
-    }
-
-    /**
-     * Get adults
-     *
-     * @return int
-     */
-    public function getAdults()
-    {
-        return $this->adults;
-    }
-    
-    /**
-     * Set children
-     *
-     * @param int $children
-     * @return RSVP
-     */
-    public function setChildren($children)
-    {
-        $this->children = $children;
-    
-        return $this;
-    }
-
-    /**
-     * Get children
-     *
-     * @return int
-     */
-    public function getChildren()
-    {
-        return $this->children;
-    }
-    
-    /**
      * Set note
      *
      * @param string $note
@@ -253,7 +249,40 @@ class RSVP
         return $this->note;
     }
     
-     /**
+    /**
+     * Add guest
+     *
+     * @param \Wedding\RespondBundle\Entity\Guest $guest
+     * @return Guest
+     */
+    public function addGuest(\Wedding\RespondBundle\Entity\Guest $guest)
+    {
+        $this->guest[] = $guest;
+    
+        return $this;
+    }
+
+    /**
+     * Remove guest
+     *
+     * @param \Wedding\RespondBundle\Entity\Guest $guest
+     */
+    public function removeGuest(\Wedding\RespondBundle\Entity\Guest $guest)
+    {
+        $this->guest->removeElement($guest);
+    }
+
+    /**
+     * Get guest
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGuest()
+    {
+        return $this->guest;
+    }
+    
+    /**
      * Add song
      *
      * @param \Wedding\RespondBundle\Entity\Song $song
@@ -284,6 +313,29 @@ class RSVP
     public function getSong()
     {
         return $this->song;
+    }
+    
+    /**
+     * Set created
+     *
+     * @param \DateTime $verified
+     * @return Email
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
     }
     
 }

@@ -2,18 +2,19 @@ body {
   margin: 0;
   padding: 0;
   background-color: #fff;
-  color: #5b256a;
+  color: #333;
   padding-top: 4.8em;
   font-family: 'Ropa Sans', sans-serif;
   line-height: 1.3em;
 }
 
 #page-wrapper {
-  background-color: #5b256a;
+  background-color: #48d1c1;
+  overflow: hidden;
 }
 
 a {
-  color: #5b256a;
+  color: #333;
 }
 
 li  {
@@ -31,7 +32,9 @@ a:focus {
 #page {
   margin: 0 auto;
   padding: 0 1em;
-  background-color: #fef7ea;
+  background: #fff;
+  box-shadow: -300px 0 300px -220px rgba(255, 255, 255, 1),
+             300px 0 300px -220px rgba(255, 255, 255, 1);
 }
 
 .us {
@@ -64,15 +67,15 @@ header {
 
 header .header-wrapper {
   margin: 0 auto;
-  padding: 0.4em 1em;
+  padding: 0.8em 1em;
 }
 
 /*
  * Logo
  */
 #logo {
-  width: 4em;
-  float: left;
+  width: 7em;
+  margin: 0 auto 0 auto;
 }
 
 #logo img {
@@ -83,43 +86,61 @@ header .header-wrapper {
 /*
  * Navigation
  */
-#navigation {
-  margin-top: 0.4em;
-  float: right;
+.navigation {
+  margin: 0 0 0 0;
+}
+.navigation-left {
+  float: left;
+  margin: 0 0 0 1em;
 }
 
-#navigation ul {
+.navigation-right {
+  float: right;
+  margin: 0 1em 0 0;
+}
+
+
+header nav ul {
+  margin: 0;
+  padding: 0;
   list-style-type: none;
 }
 
-#navigation ul li {
+header nav ul li {
   float: left;
-  margin-right: 0.7em;
   font-family: 'Ropa Sans', sans-serif;
+  clear: left;
+  margin: 0 0 0.4em 0;
 }
 
-#navigation ul li a {
+header nav ul li:last-child {
+  margin-bottom: 0;
+}
+
+header #navigation-right nav ul li {
+  float: right;
+  clear: right;
+}
+
+header nav ul li a {
   text-decoration: none;
   padding: 0.2em 0.6em;
+  border: 1px solid transparent;
 }
 
-#navigation ul li.current a {
+header nav ul li.current a {
   -webkit-border-radius: 0.2em;
   -moz-border-radius: 0.2em;
   border-radius: 0.2em;
-  background-color: #5b256a;
-  color: #fff;
+  border: 1px solid #48d1c1;
 }
 
-#navigation ul li:last-child {
-  margin-right: 0;
-}
 
 /*
  * Title
  */
 h2.title {
-  border-bottom: 1px solid #5B256A;
+  border-bottom: 1px solid #FFE5B4;
 }
 
 /*
@@ -143,48 +164,40 @@ h2.title {
 /*
  * Travel
  */
-#travel .body .map {
-  margin: 0 -1em;
-} 
-
-#travel .body iframe {
-  width: 100%;
-  border: none;
-  margin: 0;
-  padding: 0;
-  height: 25em;
+#travel .venue {
+  text-align: center;
 }
 
-/*
- * Icon
- */
-.icon {
-  position: fixed;
-  bottom: 0;
-  width: auto;
+#travel .body {
+  overflow: hidden;
 }
 
-.icon img {
-  height: 16em;
-  width: auto;
+#travel .airport {
+  float: left;
+  width: 48%;
 }
 
-.icon.will {
-  margin-left: -11.8em;
+#travel .hotel {
+  float: right;
+  text-align: right;
+  width: 48%;
 }
 
-.icon.jess {
-  margin-left: 39em;
-}
-
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 632px) {
 
   header .header-wrapper {
-    width: 600px;
+    width: 632px;
+    padding-right: 0;
+    padding-left: 0;
   }
 
   #page {
     width: 600px;
   }
+  
+  body #photos .wrapper {
+    width: 632px;
+  }
+
 
 }

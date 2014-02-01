@@ -3,7 +3,7 @@
 namespace Wedding\RespondBundle\Form\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
-
+use Doctrine\Common\Collections\ArrayCollection;
 
 class Respond
 {
@@ -15,35 +15,40 @@ class Respond
     
     /**
      * @Assert\NotBlank()
-     * @Assert\MaxLength(255)
+     * @Assert\Length(
+     *      max = "255"
+     * )
      */
-    protected $name;
+    protected $first_name;
+    
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Length(
+     *      max = "255"
+     * )
+     */
+    protected $last_name;
     
     /**
      * @Assert\Email()
-     * @Assert\MaxLength(255)
+     * @Assert\Length(
+     *      max = "255"
+     * )
      */
     protected $email;
     
     /**
      * @Assert\NotBlank()
-     * @Assert\MaxLength(20)
+     * @Assert\Length(
+     *      max = "255"
+     * )
      */
     protected $phone;
     
     /**
-     * Adults
-     *
-     * @Assert\Type(type="numeric")
+     * Song List
      */
-    protected $adults;
-    
-    /**
-     * Children
-     *
-     * @Assert\Type(type="numeric")
-     */
-    protected $children;
+    protected $guest;
     
     /**
      * Song List
@@ -54,6 +59,11 @@ class Respond
      * Note
      */
     protected $note;
+    
+    public function __construct()
+    {
+        $this->attendee = new ArrayCollection();
+    }
     
     
     public function setAttending($attending)
@@ -66,14 +76,24 @@ class Respond
         return $this->attending;
     }
 
-    public function setName($name)
+    public function setFirstName($first_name)
     {
-        $this->name = $name;
+        $this->first_name = $first_name;
     }
 
-    public function getName()
+    public function getFirstName()
     {
-        return $this->name;
+        return $this->first_name;
+    }
+    
+    public function setLastName($last_name)
+    {
+        $this->last_name = $last_name;
+    }
+
+    public function getLastName()
+    {
+        return $this->last_name;
     }
     
     public function setEmail($email)
@@ -96,24 +116,21 @@ class Respond
         return $this->phone;
     }
     
-    public function setAdults($adults)
+    public function addGuest(\Wedding\RespondBundle\Form\Model\Guest $guest)
     {
-        $this->adults = $adults;
-    }
-
-    public function getAdults()
-    {
-        return $this->adults;
-    }
+        $this->guest[] = $guest;
     
-    public function setChildren($children)
-    {
-        $this->children = $children;
+        return $this;
     }
 
-    public function getChildren()
+    public function removeGuest(\Wedding\RespondBundle\Form\Model\Guest $guest)
     {
-        return $this->children;
+        $this->attendee->removeElement($guest);
+    }
+
+    public function getGuest()
+    {
+        return $this->guest;
     }
     
     public function setSongList($song_list)

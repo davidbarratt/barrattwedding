@@ -1,3 +1,4 @@
+/.env
 /web/bundles/*
 /web/css/*
 /web/js/*
@@ -5,7 +6,5 @@
 /app/bootstrap*
 /app/cache/*
 /app/logs/*
-/build/*
-/vendor/*
-/bin/
-/app/config/parameters.yml
+/build
+/vendor

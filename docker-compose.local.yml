@@ -3,11 +3,9 @@ services:
   web:
     links:
       - smtp
+  cache:
     ports:
       - 8888:80
-  # cache:
-  #   ports:
-  #     - 8888:80
   smtp:
     image: sj26/mailcatcher
     ports:

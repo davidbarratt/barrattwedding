@@ -17,5 +17,9 @@ services:
     image: davidbarratt/barrattwedding
     env_file:
       - .env
-    ports:
-      - "8888:80"
+  cache:
+    image: davidbarratt/varnish
+    environment:
+      - VIRTUAL_HOST=barrattwedding.com,www.barrattwedding.com,origin.barrattwedding.com
+    links:
+      - web:backend

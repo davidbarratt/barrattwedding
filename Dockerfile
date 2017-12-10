@@ -41,7 +41,7 @@ ENV PATH="/var/www/vendor/bin:${PATH}"
 # Touch the SQLite Database and set the permissions
 RUN mkdir -p ../app/data \
     && touch ../app/data/data.db \
-    && chown www-data:www-data ../app/data/data.db
+    && chown -R www-data:www-data ../app/data
 
 # Clear the cache & Create the database schema
 RUN ../app/console cache:clear \

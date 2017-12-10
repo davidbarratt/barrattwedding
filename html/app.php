@@ -1,23 +1,22 @@
 <?php
 
+use Symfony\Component\Debug\Debug;
 use Symfony\Component\ClassLoader\ApcClassLoader;
 use Symfony\Component\HttpFoundation\Request;
 
-$loader = require_once __DIR__.'/../app/bootstrap.php.cache';
+require_once __DIR__.'/../app/bootstrap.php.cache';
 
-// Use APC for autoloading to improve performance
-// Change 'sf2' by the prefix you want in order to prevent key conflict with another application
-/*
-$loader = new ApcClassLoader('sf2', $loader);
-$loader->register(true);
-*/
+if (isset($_SERVER['SYMFONY_DEBUG']) ? (bool) $_SERVER['SYMFONY_DEBUG'] : false) {
+    // Disable OpCache
+    ini_set('opcache.enable', 0);
+    umask(0000);
+    Debug::enable();
+}
 
 require_once __DIR__.'/../app/AppKernel.php';
-//require_once __DIR__.'/../app/AppCache.php';
 
-$kernel = new AppKernel('prod', false);
+$kernel = new AppKernel(isset($_SERVER['SYMFONY_ENV']) ? $_SERVER['SYMFONY_ENV'] : 'dev', isset($_SERVER['SYMFONY_DEBUG']) ? (bool) $_SERVER['SYMFONY_DEBUG'] : false);
 $kernel->loadClassCache();
-//$kernel = new AppCache($kernel);
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();
